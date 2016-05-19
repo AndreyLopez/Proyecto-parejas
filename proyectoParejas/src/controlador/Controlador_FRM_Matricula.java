@@ -10,6 +10,7 @@ import modelo.MetodosMatricula;
 import vista.FRM_MantenimientoCursos;
 import vista.FRM_MantenimientoEstudiantes;
 import vista.FRM_Matricula;
+import vista.PrincipalVentana;
 
 /**
  *
@@ -21,6 +22,7 @@ public class Controlador_FRM_Matricula implements ActionListener {
     MetodosEstudiantes metodosEstudiantes;
     public MetodosMatricula metodosMatricula;
     FRM_Matricula frm_Matricula;
+    PrincipalVentana pri;
     boolean encontroEstudiante=false;
     boolean encontroCurso=false;
     BaseDatos baseDatos;
@@ -36,69 +38,125 @@ public class Controlador_FRM_Matricula implements ActionListener {
         metodosMatricula=new MetodosMatricula(metodosEstudiantes,metodosCursos,this,frm_Matricula);
         baseDatos=new BaseDatos();
         
+        pri= new PrincipalVentana();
     }
     public void actionPerformed(ActionEvent e){
         
        if(e.getActionCommand().equals("BuscarCedula"))  
         {
+            if(pri.seleccion.equals("Base")){
             buscarCedula();
+            }
+            if(pri.seleccion.equals("archivo"))
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            }
         }
       if(e.getActionCommand().equals("BuscarSigla"))
       {
-          if(baseDatos.existenciaCurso(frm_Matricula.devolverSigla()))
+          if(pri.seleccion.equals("Base"))
           {
-            //String arreglo[]=metodosCursos.getArregloInformacion();
-            frm_Matricula.colocarNombreCurso(baseDatos.arregloCurso);
-            frm_Matricula.habilitarAgregar();
-            encontroCurso=true;
-          }else
-          {
-            frm_Matricula.mostrarMensaje("El curso no se encuentra, favor dirigirse al módulo de Mantenimiento Cursos");
-          }
+             if(baseDatos.existenciaCurso(frm_Matricula.devolverSigla()))
+             {
+                //String arreglo[]=metodosCursos.getArregloInformacion();
+                frm_Matricula.colocarNombreCurso(baseDatos.arregloCurso);
+                frm_Matricula.habilitarAgregar();
+                encontroCurso=true;
+                }
+                else
+                {
+                  frm_Matricula.mostrarMensaje("El curso no se encuentra, favor dirigirse al módulo de Mantenimiento Cursos");
+                }
+              }
+            if(pri.seleccion.equals("archivo"))
+              {
+                  System.out.println("Se seleccionó archivos");
+              }
+              if(pri.seleccion.equals("xml"))
+              {
+                  System.out.println("Se seleccionó xml");
+              }
       }
       if(e.getActionCommand().equals("Agregar"))  
         {
-            frm_Matricula.agregarInformacionTabla();
-            frm_Matricula.limpiarSigla();
-           // frm_Matricula.limpiarCedula();
+            if(pri.seleccion.equals("Base")){
+                frm_Matricula.agregarInformacionTabla();
+                frm_Matricula.limpiarSigla();
+               // frm_Matricula.limpiarCedula();
+            }
+            if(pri.seleccion.equals("archivo"))
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            }
         }
       if(e.getActionCommand().equals("Finalizar"))  
         {
-           String arreglo[]=new String[3];
-            for(int i=0; i < frm_Matricula.getCantidadFilas();i++)
-            {
-            arreglo[0]=frm_Matricula.devolverCodigo();
-            arreglo[1]=frm_Matricula.devolverDato(i,1);
-            arreglo[2]=frm_Matricula.devolverDato(i,3);
-            baseDatos.registrarMatricula(arreglo);
-            baseDatos.registrarDetalleMatricula(arreglo);
-            //baseDatos.
+            if(pri.seleccion.equals("Base")){
+                String arreglo[]=new String[3];
+                 for(int i=0; i < frm_Matricula.getCantidadFilas();i++)
+                 {
+                 arreglo[0]=frm_Matricula.devolverCodigo();
+                 arreglo[1]=frm_Matricula.devolverDato(i,1);
+                 arreglo[2]=frm_Matricula.devolverDato(i,3);
+                 baseDatos.registrarMatricula(arreglo);
+                 baseDatos.registrarDetalleMatricula(arreglo);
+                 //baseDatos.
+                 }
+                 frm_Matricula.colocarCodigo(baseDatos.codigoMatricula());
+                 frm_Matricula.resetearVentana();
+                 encontroEstudiante=false;
+                 encontroCurso=false;
             }
-            frm_Matricula.colocarCodigo(baseDatos.codigoMatricula());
-            frm_Matricula.resetearVentana();
-            encontroEstudiante=false;
-            encontroCurso=false;
+            if(pri.seleccion.equals("archivo"))
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            }
         }
          
     if(e.getActionCommand().equals("Consultar")) 
         
         {
-            
-             if(baseDatos.existenciaDetalleMatricula(frm_Matricula.devolverCodigo()))
+            if(pri.seleccion.equals("Base"))
+            {
+                if(baseDatos.existenciaDetalleMatricula(frm_Matricula.devolverCodigo()))
+                {
+                 //frm_Matricula.mostrarInformacion(baseDatos.arregloDetalle);
+                 frm_Matricula.agregarInformacionTabla(baseDatos.arregloDetalle);
+                  frm_Matricula.habilitarOpciones();
+                }
+
+             else
              {
-              //frm_Matricula.mostrarInformacion(baseDatos.arregloDetalle);
-              frm_Matricula.agregarInformacionTabla(baseDatos.arregloDetalle);
-               frm_Matricula.habilitarOpciones();
+
+                 JOptionPane.showMessageDialog(null,"No existe");
              }
+           }
             
-          else
-          {
-            
-              JOptionPane.showMessageDialog(null,"No existe");
-          }
+            if(pri.seleccion.equals("archivo"))
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            }
         }
     if(e.getActionCommand().equalsIgnoreCase("Eliminar"))  
         {
+            if(pri.seleccion.equals("Base"))
+            {    
           //JOptionPane.showMessageDialog(null,"LOLLLL");
            baseDatos.eliminarMatricula(frm_Matricula.devolverCodigo());
            baseDatos.eliminarDetalleMatricula(frm_Matricula.devolverCodigo());
@@ -106,6 +164,15 @@ public class Controlador_FRM_Matricula implements ActionListener {
                frm_Matricula.resetearVentana();
             encontroEstudiante=false;
             encontroCurso=false;
+            }
+            if(pri.seleccion.equals("archivo"))
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            }
         }
     }
     

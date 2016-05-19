@@ -19,7 +19,7 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
     BaseDatos baseDatos;
     PrincipalVentana principal;
     PrincipalVentana pri;
-    int num;
+   // int num;
     
     public Controlador_FRM_MantenimientoEstudiantes(FRM_MantenimientoEstudiantes frm_MantenimientoEstudiantes)
     {
@@ -28,21 +28,20 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
         this.frm_MantenimientoEstudiantes=frm_MantenimientoEstudiantes;
         baseDatos=new BaseDatos();
         principal=new PrincipalVentana();
-        if(pri.seleccion().equalsIgnoreCase("archivo"))
+        if(pri.seleccion.equalsIgnoreCase("archivo"))
         {
-            num=1;
+        //    num=1;
             JOptionPane.showMessageDialog(null,"entro a archivos pero no esta activado");
         }
     }
     
     public void actionPerformed(ActionEvent e)
     {
-        if(num==2)
-        {
-            
         
         if(e.getActionCommand().equals("Agregar"))
         {
+            if(pri.seleccion.equals("Base")){
+            
 //            metodosEstudiantes.agregarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
             baseDatos.registrarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
             frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta");
@@ -51,48 +50,93 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
 //            {
 //               frm_MantenimientoEstudiantes.mostrarMensaje("guarda en archivos");
 //            }
-            
+            }
+            if(pri.seleccion.equals("archivo"))
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            }
         }
         if(e.getActionCommand().equals("Consultar") || e.getActionCommand().equals("Consulta_Rapida"))
         {            
+            if(pri.seleccion.equals("Base")){
             buscar();
+            }
+            if(pri.seleccion.equals("archivo"))
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            }
         }
+        
+        
         if(e.getActionCommand().equals("Modificar"))
         {
-            if(baseDatos.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion()))
-            {
-                System.out.println("correcto");
-            }
-            else
-            {
-                System.out.println("no");
-            }
             
+            if(pri.seleccion.equals("Base"))
+            {
+                if(baseDatos.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion()))
+                {
+                    System.out.println("correcto");
+                }
+                else
+                {
+                    System.out.println("no");
+                }
+                
+                frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
+                frm_MantenimientoEstudiantes.resetearGUI();
+       
+            }
+            if(pri.seleccion.equals("archivo"))
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            }
             
            // metodosEstudiantes.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
-            frm_MantenimientoEstudiantes.resetearGUI();
+//            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
+//            frm_MantenimientoEstudiantes.resetearGUI();
         }
+        
+        
+        
         if(e.getActionCommand().equals("Eliminar"))
         {
-           //metodosEstudiantes.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-            if(baseDatos.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
-            {
-                 System.out.println("se elimino estudiante");
+            if(pri.seleccion.equals("Base"))
+            {    
+                //metodosEstudiantes.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+                 if(baseDatos.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
+                 {
+                      System.out.println("se elimino estudiante");
+                 }
+                 else
+                 {
+                      frm_MantenimientoEstudiantes.mostrarMensaje("Cedula no se encuentra");
+                 }
+                 frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
+                 frm_MantenimientoEstudiantes.resetearGUI();
             }
-            else
+            if(pri.seleccion.equals("archivo"))
             {
-                 frm_MantenimientoEstudiantes.mostrarMensaje("Cedula no se encuentra");
+                System.out.println("Se seleccionó archivos");
             }
-            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
-            frm_MantenimientoEstudiantes.resetearGUI();
-        }
-    }
-       else if(num==1)
-        {
-             
-            
-        }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            } 
+       }
+        
+    
     }
     public void buscar()
     {

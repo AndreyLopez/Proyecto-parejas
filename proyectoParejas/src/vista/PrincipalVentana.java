@@ -64,6 +64,11 @@ public class PrincipalVentana extends javax.swing.JFrame {
 
         jbg_Seleccion.add(jrb_Xml);
         jrb_Xml.setText("XML");
+        jrb_Xml.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb_XmlActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,16 +108,22 @@ public class PrincipalVentana extends javax.swing.JFrame {
         // TODO add your handling code here:
         //seleccion="archivo";
         seleccion();
-        FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
-        VEN.setVisible(true);
-
+//        FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
+//        VEN.setVisible(true);
+//        
     }//GEN-LAST:event_jrb_ArchivosActionPerformed
 
     private void jrb_BaseDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_BaseDatosActionPerformed
-        seleccion="base";
-        FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
-        VEN.setVisible(true);
+        //seleccion="base";
+        //FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
+        //VEN.setVisible(true);
+        seleccion();
     }//GEN-LAST:event_jrb_BaseDatosActionPerformed
+
+    private void jrb_XmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_XmlActionPerformed
+        // TODO add your handling code here:
+        seleccion();
+    }//GEN-LAST:event_jrb_XmlActionPerformed
      public String seleccion()
      {
          String seleccion="";
@@ -120,20 +131,33 @@ public class PrincipalVentana extends javax.swing.JFrame {
          if(this.jrb_Archivos.isSelected()==true)
          {
              seleccion="archivo";
-             this.jrb_Xml.setEnabled(false);
+             
+             //this.jrb_Xml.setEnabled(false);
+             FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
+             VEN.TipoDeAlmacenamiento.setText(seleccion);
+             VEN.setVisible(true);
+        
              
          }
          if(this.jrb_BaseDatos.isSelected()==true)
          {
              seleccion="Base";
-             this.jrb_Archivos.setEnabled(false);
-              this.jrb_Xml.setEnabled(false);
+          //   this.jrb_Archivos.setEnabled(false);
+            //  this.jrb_Xml.setEnabled(false);
+              FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
+             VEN.TipoDeAlmacenamiento.setText(seleccion);
+              VEN.setVisible(true);
          }
          if(this.jrb_Xml.isSelected()==true)
          {
              seleccion="xml";
-             this.jrb_Archivos.setEnabled(false);
-              this.jrb_BaseDatos.setEnabled(false);
+             FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
+             VEN.TipoDeAlmacenamiento.setText(seleccion);
+             VEN.setVisible(true);
+         
+        //    VEN.TipoDeAlmacenamiento.setText(seleccion);
+         //    this.jrb_Archivos.setEnabled(false);
+           //   this.jrb_BaseDatos.setEnabled(false);
          }
          return seleccion;
      }

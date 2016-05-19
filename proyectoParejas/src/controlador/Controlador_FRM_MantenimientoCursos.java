@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import modelo.BaseDatos;
 import modelo.MetodosCursos;
 import vista.FRM_MantenimientoCursos;
+import vista.PrincipalVentana;
 
 /**
  *
@@ -16,23 +17,27 @@ public class Controlador_FRM_MantenimientoCursos implements ActionListener{
     FRM_MantenimientoCursos frm_mantenimientoCursos;
     public MetodosCursos metodosCursos;
    public BaseDatos baseDatos;
-    
+    PrincipalVentana pri;
     public Controlador_FRM_MantenimientoCursos(FRM_MantenimientoCursos frm_mantenimientoCursos)
     {
         this.frm_mantenimientoCursos=frm_mantenimientoCursos;
         baseDatos=new BaseDatos();
+        pri = new PrincipalVentana();
     }
     
     public void actionPerformed(ActionEvent evento)
     {
         if(evento.getActionCommand().equals("Agregar"))
         {
-            //if(frm_mantenimientoCursos.verificar(frm_mantenimientoCursos.devolverInformacion()))
+            if(pri.seleccion.equals("Base"))
+            {    
+                //if(frm_mantenimientoCursos.verificar(frm_mantenimientoCursos.devolverInformacion()))
             //{
                 baseDatos.registrarCurso(frm_mantenimientoCursos.devolverInformacion());
                frm_mantenimientoCursos.mostrarMensaje("El estudiante fue registrado de forma correcta");
                frm_mantenimientoCursos.resetearGUI();
-              
+            }
+            
             //}
             //else
             //{
@@ -42,19 +47,52 @@ public class Controlador_FRM_MantenimientoCursos implements ActionListener{
         }
         if(evento.getActionCommand().equals("Consultar") || evento.getActionCommand().equals("ConsultaRapida"))
         {
-            buscar();
+            if(pri.seleccion.equals("Base"))
+            {
+                buscar();
+            }
+            if(pri.seleccion.equals("archivo"))
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            }
         }
         if(evento.getActionCommand().equals("Modificar"))
         {
-            baseDatos.modificarCurso(frm_mantenimientoCursos.devolverInformacion());
-            frm_mantenimientoCursos.mostrarMensaje("El estudiante fue modificado de forma correcta.");
-            frm_mantenimientoCursos.resetearGUI();     
+            if(pri.seleccion.equals("Base"))
+            {
+                baseDatos.modificarCurso(frm_mantenimientoCursos.devolverInformacion());
+                frm_mantenimientoCursos.mostrarMensaje("El estudiante fue modificado de forma correcta.");
+                frm_mantenimientoCursos.resetearGUI();     
+            }
+            if(pri.seleccion.equals("archivo"))
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            }
         }
         if(evento.getActionCommand().equals("Eliminar"))
         {
-            baseDatos.eliminarCurso(frm_mantenimientoCursos.devolverSigla());
-            frm_mantenimientoCursos.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
-            frm_mantenimientoCursos.resetearGUI();
+            if(pri.seleccion.equals("Base"))
+            {
+                baseDatos.eliminarCurso(frm_mantenimientoCursos.devolverSigla());
+                frm_mantenimientoCursos.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
+                frm_mantenimientoCursos.resetearGUI();
+            }
+            if(pri.seleccion.equals("archivo"))
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(pri.seleccion.equals("xml"))
+            {
+                System.out.println("Se seleccionó xml");
+            }
         }
     
     }

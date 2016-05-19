@@ -92,7 +92,6 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
                 
                 frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
                 frm_MantenimientoEstudiantes.resetearGUI();
-       
             }
             if(pri.seleccion.equals("archivo"))
             {

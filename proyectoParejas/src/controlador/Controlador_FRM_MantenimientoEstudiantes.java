@@ -125,14 +125,19 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
                  frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
                  frm_MantenimientoEstudiantes.resetearGUI();
             }
-            if(pri.seleccion.equals("archivo"))
-            {
-                System.out.println("Se seleccionó archivos");
-            }
-            if(pri.seleccion.equals("xml"))
-            {
+//            if(pri.seleccion.equals("archivo"))
+//            {
+//                System.out.println("Se seleccionó archivos");
+//            }
+//            if(pri.seleccion.equals("xml"))
+//            {
+            else if(pri.seleccion.equals("xml")){
+                
                 System.out.println("Se seleccionó xml");
-            } 
+            }
+            else{
+                System.out.println("archivo");
+            }
        }
         
     

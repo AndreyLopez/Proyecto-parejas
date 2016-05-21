@@ -59,6 +59,13 @@ public class Panel_Cursos extends javax.swing.JPanel {
         this.jt_Horario.setText(arreglo[2]);
         
     }
+   public void mostrarInformacionXML(String arreglo[])
+    {
+        this.jt_Nombre.setText(arreglo[1]);
+        this.jcb_Creditos.setSelectedIndex(Integer.parseInt(arreglo[2]));
+        this.jt_Horario.setText(arreglo[3]);
+        
+    }
     public void habilitarCampos()
     {
         this.jt_Nombre.setEnabled(true);
@@ -183,7 +190,7 @@ public class Panel_Cursos extends javax.swing.JPanel {
     private void jt_SiglaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_SiglaKeyPressed
         if(evt.getKeyCode()==10)
         {
-            this.controlador.buscar();
+           // this.controlador.buscar();
         }
     }//GEN-LAST:event_jt_SiglaKeyPressed
 

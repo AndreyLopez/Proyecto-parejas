@@ -29,6 +29,10 @@ public class FRM_MantenimientoEstudiantes extends javax.swing.JFrame {
     {
         return this.panel_InformacionBasica1.verificarCedula(texto);
     }
+    public void mensaje(String mensaje)
+    {
+        JOptionPane.showMessageDialog(null, mensaje);
+    }
     public String[] devolverInformacion()
     {
         return this.panel_InformacionBasica1.devolverInformacion();
@@ -41,6 +45,10 @@ public class FRM_MantenimientoEstudiantes extends javax.swing.JFrame {
     public void mostrarInformacion(String arreglo[])
     {
         this.panel_InformacionBasica1.mostrarInformacion(arreglo);
+    }
+    public void mostrarInformacionXML(String arreglo[])
+    {
+        this.panel_InformacionBasica1.mostrarInformacionXML(arreglo);
     }
     public void mostrarMensaje(String mensaje)
     {

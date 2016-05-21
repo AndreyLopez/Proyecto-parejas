@@ -18,7 +18,7 @@ public class PrincipalVentana extends javax.swing.JFrame {
      */
 
 
-    public String seleccion="";
+    public static int numSeleccion=0;
    
       //FRM_VentanaPrincipal ventana;
     public PrincipalVentana() {
@@ -107,22 +107,23 @@ public class PrincipalVentana extends javax.swing.JFrame {
     private void jrb_ArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_ArchivosActionPerformed
         // TODO add your handling code here:
         //seleccion="archivo";
-        seleccion();
-//        FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
-//        VEN.setVisible(true);
+       // seleccion();
+      numSeleccion=1;
+      FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
+      VEN.setVisible(true);
 //        
     }//GEN-LAST:event_jrb_ArchivosActionPerformed
 
     private void jrb_BaseDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_BaseDatosActionPerformed
-        //seleccion="base";
-        //FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
-        //VEN.setVisible(true);
-        seleccion();
+        numSeleccion=2;
+      FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
+      VEN.setVisible(true);
     }//GEN-LAST:event_jrb_BaseDatosActionPerformed
 
     private void jrb_XmlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_XmlActionPerformed
-        // TODO add your handling code here:
-        seleccion();
+         numSeleccion=3;
+      FRM_VentanaPrincipal VEN=new FRM_VentanaPrincipal();
+      VEN.setVisible(true);
     }//GEN-LAST:event_jrb_XmlActionPerformed
      public String seleccion()
      {

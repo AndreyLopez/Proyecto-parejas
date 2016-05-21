@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import modelo.BaseDatos;
+import modelo.EstudianteXML;
 import modelo.MetodosEstudiantes;
 import vista.FRM_MantenimientoEstudiantes;
 import vista.PrincipalVentana;
@@ -19,20 +20,18 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
     BaseDatos baseDatos;
     PrincipalVentana principal;
     PrincipalVentana pri;
+    EstudianteXML xml;
    // int num;
     
     public Controlador_FRM_MantenimientoEstudiantes(FRM_MantenimientoEstudiantes frm_MantenimientoEstudiantes)
     {
         metodosEstudiantes= new MetodosEstudiantes();
-        pri=new PrincipalVentana();
+        //pri=new PrincipalVentana();
         this.frm_MantenimientoEstudiantes=frm_MantenimientoEstudiantes;
         baseDatos=new BaseDatos();
+        xml=new EstudianteXML(frm_MantenimientoEstudiantes);
         principal=new PrincipalVentana();
-        if(pri.seleccion.equalsIgnoreCase("archivo"))
-        {
-        //    num=1;
-            JOptionPane.showMessageDialog(null,"entro a archivos pero no esta activado");
-        }
+       
     }
     
     public void actionPerformed(ActionEvent e)
@@ -40,66 +39,68 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
         
         if(e.getActionCommand().equals("Agregar"))
         {
-            if(pri.seleccion.equals("Base")){
+            if(PrincipalVentana.numSeleccion==2)
+          {
             
-//            metodosEstudiantes.agregarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+
             baseDatos.registrarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
-            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta");
+            frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta en base datos");
             frm_MantenimientoEstudiantes.resetearGUI();
-//            if(principal.seleccion.equals("Archivos"))
-//            {
-//               frm_MantenimientoEstudiantes.mostrarMensaje("guarda en archivos");
-//            }
-            }
-            if(pri.seleccion.equals("archivo"))
+        }
+            if(PrincipalVentana.numSeleccion==1)
             {
-                System.out.println("Se seleccionó archivos");
+              System.out.println("Se seleccionó archivos");
             }
-            if(pri.seleccion.equals("xml"))
+            if(PrincipalVentana.numSeleccion==3)
             {
-                System.out.println("Se seleccionó xml");
+                 xml.guardarEnXML(frm_MantenimientoEstudiantes.devolverInformacion());
+                 frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta en xml");
+                 frm_MantenimientoEstudiantes.resetearGUI();
+                
             }
         }
         if(e.getActionCommand().equals("Consultar") || e.getActionCommand().equals("Consulta_Rapida"))
         {            
-            if(pri.seleccion.equals("Base")){
-            buscar();
+            if(PrincipalVentana.numSeleccion==2){
+            buscarBase();
             }
-            if(pri.seleccion.equals("archivo"))
-            {
-                System.out.println("Se seleccionó archivos");
+            else if(PrincipalVentana.numSeleccion==1){
+             System.out.println("Archivos");
             }
-            if(pri.seleccion.equals("xml"))
-            {
-                System.out.println("Se seleccionó xml");
+             else if(PrincipalVentana.numSeleccion==3){
+            buscarXML();
             }
+
         }
         
         
         if(e.getActionCommand().equals("Modificar"))
         {
             
-            if(pri.seleccion.equals("Base"))
+            if(PrincipalVentana.numSeleccion==2)
             {
                 if(baseDatos.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion()))
                 {
-                    System.out.println("correcto");
+                    
+                     frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta en base datos.");
+                     frm_MantenimientoEstudiantes.resetearGUI();
                 }
                 else
                 {
-                    System.out.println("no");
+                    frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante no se encuentra");
                 }
                 
-                frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
-                frm_MantenimientoEstudiantes.resetearGUI();
+               
             }
-            if(pri.seleccion.equals("archivo"))
+            if(PrincipalVentana.numSeleccion==1)
             {
                 System.out.println("Se seleccionó archivos");
             }
-            if(pri.seleccion.equals("xml"))
+            if(PrincipalVentana.numSeleccion==3)
             {
-                System.out.println("Se seleccionó xml");
+                xml.modificarInformacionDelXml(frm_MantenimientoEstudiantes.devolverInformacion());
+                frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta en xml.");
+                frm_MantenimientoEstudiantes.resetearGUI();
             }
             
            // metodosEstudiantes.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
@@ -111,41 +112,39 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
         
         if(e.getActionCommand().equals("Eliminar"))
         {
-            if(pri.seleccion.equals("Base"))
+            if(PrincipalVentana.numSeleccion==2)
             {    
                 //metodosEstudiantes.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
                  if(baseDatos.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
                  {
-                      System.out.println("se elimino estudiante");
+                      
+                      frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta base datos");
+                      frm_MantenimientoEstudiantes.resetearGUI();
                  }
                  else
                  {
                       frm_MantenimientoEstudiantes.mostrarMensaje("Cedula no se encuentra");
                  }
-                 frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
+                 
+            }
+            if(PrincipalVentana.numSeleccion==1)
+            {
+                System.out.println("Se seleccionó archivos");
+            }
+            if(PrincipalVentana.numSeleccion==3)
+            {
+                 xml.eliminarInformacionDelXml(frm_MantenimientoEstudiantes.devolverCedula());
+                 frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta en xml.");
                  frm_MantenimientoEstudiantes.resetearGUI();
             }
-//            if(pri.seleccion.equals("archivo"))
-//            {
-//                System.out.println("Se seleccionó archivos");
-//            }
-//            if(pri.seleccion.equals("xml"))
-//            {
-            else if(pri.seleccion.equals("xml")){
-                
-                System.out.println("Se seleccionó xml");
-            }
-            else{
-                System.out.println("archivo");
-            }
+            
        }
         
     
     }
-    public void buscar()
+    public void buscarBase()
     {
-        if(frm_MantenimientoEstudiantes.verificarCedula(frm_MantenimientoEstudiantes.devolverCedula()))
-        {
+        
             if(baseDatos.existenciaEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
             {
                frm_MantenimientoEstudiantes.mostrarInformacion(baseDatos.arregloEstudiante);
@@ -153,13 +152,29 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
             }
             else
             {
+                 frm_MantenimientoEstudiantes.mostrarMensaje("Cedula se escribio mal");
                 frm_MantenimientoEstudiantes.habilitarAgregar();
             }
-        }
-        else
-        {
-           frm_MantenimientoEstudiantes.mostrarMensaje("Cedula se escribio mal");
-        }
+      
+       
+        
+    }
+    
+     public void buscarXML()
+    {
+        
+            if(xml.consultarInformacionDelXml(frm_MantenimientoEstudiantes.devolverCedula()))
+            {
+               frm_MantenimientoEstudiantes.mostrarInformacionXML(xml.getArregloInformacion());
+               frm_MantenimientoEstudiantes.habilitarEdicion();
+            }
+            else
+            {
+                 frm_MantenimientoEstudiantes.mostrarMensaje("Cedula se escribio mal");
+                frm_MantenimientoEstudiantes.habilitarAgregar();
+            }
+      
+       
         
     }
     

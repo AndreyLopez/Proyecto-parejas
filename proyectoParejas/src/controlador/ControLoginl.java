@@ -43,7 +43,7 @@ public class ControLoginl implements ActionListener{
             if(base.buscarContrasena(login.devolverPassword()))
             {
                System.out.println("encontro contrasena");
-              ventana= new FRM_VentanaPrincipal();
+              //ventana= new FRM_VentanaPrincipal();
               ventana.setVisible(true);
               login.cerrar();
               

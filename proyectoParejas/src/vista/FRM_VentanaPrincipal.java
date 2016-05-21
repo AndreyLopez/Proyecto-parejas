@@ -17,12 +17,17 @@ public class FRM_VentanaPrincipal extends javax.swing.JFrame {
 
     Controlador_FRM_VentanaPrincipal controlador_FRM_VentanaPrincipal;
     //BaseDatos baseDatos;
+    public String tipo;
     public FRM_VentanaPrincipal() {
+        //this.tipo=tipo;
         initComponents();
         this.setLocation(200, 100);
         controlador_FRM_VentanaPrincipal=new Controlador_FRM_VentanaPrincipal(this);
         agregarEventos();
    
+    }
+    public void selet(String palabra){
+        tipo=palabra;
     }
     
     public void agregarEventos()
@@ -44,7 +49,7 @@ public class FRM_VentanaPrincipal extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         TipoDeAlmacenamiento = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        fondo = new javax.swing.JLabel();
         jm_BarraMenu = new javax.swing.JMenuBar();
         jm_Archivo = new javax.swing.JMenu();
         jm_Salir = new javax.swing.JMenuItem();
@@ -58,8 +63,8 @@ public class FRM_VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(TipoDeAlmacenamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 70, 20));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 12, -1, -1));
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo.jpg"))); // NOI18N
+        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 12, -1, -1));
 
         jm_Archivo.setText("Archivo");
 
@@ -97,7 +102,7 @@ public class FRM_VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel TipoDeAlmacenamiento;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel fondo;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu jm_Archivo;
     private javax.swing.JMenuBar jm_BarraMenu;

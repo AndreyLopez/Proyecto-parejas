@@ -31,6 +31,10 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
         baseDatos=new BaseDatos();
         xml=new EstudianteXML(frm_MantenimientoEstudiantes);
         principal=new PrincipalVentana();
+//         if(PrincipalVentana.numSeleccion==1){
+//             System.out.println("1");
+////             metodosEstudiantes.verificarArchivoEstudiante();
+//         }
        
     }
     
@@ -49,7 +53,10 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
         }
             if(PrincipalVentana.numSeleccion==1)
             {
-              System.out.println("Se seleccionó archivos");
+//              System.out.println("Se seleccionó archivos");
+              metodosEstudiantes.agregarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+              frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue registrado de forma correcta");
+              frm_MantenimientoEstudiantes.resetearGUI();
             }
             if(PrincipalVentana.numSeleccion==3)
             {
@@ -66,6 +73,7 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
             }
             else if(PrincipalVentana.numSeleccion==1){
              System.out.println("Archivos");
+             buscar();
             }
              else if(PrincipalVentana.numSeleccion==3){
             buscarXML();
@@ -94,7 +102,11 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
             }
             if(PrincipalVentana.numSeleccion==1)
             {
-                System.out.println("Se seleccionó archivos");
+//                System.out.println("Se seleccionó archivos");
+//                metodosEstudiantes.verificarArchivoEstudiante();
+                metodosEstudiantes.modificarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+                frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue modificado de forma correcta.");
+                frm_MantenimientoEstudiantes.resetearGUI();
             }
             if(PrincipalVentana.numSeleccion==3)
             {
@@ -130,6 +142,9 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
             if(PrincipalVentana.numSeleccion==1)
             {
                 System.out.println("Se seleccionó archivos");
+                metodosEstudiantes.eliminarEstudiante(frm_MantenimientoEstudiantes.devolverInformacion());
+                frm_MantenimientoEstudiantes.mostrarMensaje("El estudiante fue eliminado de forma correcta.");
+                frm_MantenimientoEstudiantes.resetearGUI();
             }
             if(PrincipalVentana.numSeleccion==3)
             {
@@ -177,5 +192,23 @@ public class Controlador_FRM_MantenimientoEstudiantes implements ActionListener{
        
         
     }
+    
+     public void buscar()
+    {
+        if(metodosEstudiantes.consultarEstudiante(frm_MantenimientoEstudiantes.devolverCedula()))
+            {
+                frm_MantenimientoEstudiantes.mostrarInformacion(metodosEstudiantes.getArregloInformacion());
+                frm_MantenimientoEstudiantes.habilitarEdicion();
+            }
+            else
+            {
+                frm_MantenimientoEstudiantes.mostrarMensaje("La cédula buscada no se encuentra.");
+                frm_MantenimientoEstudiantes.habilitarAgregar();
+            }
+    }
+     
+     public void escribirArchivoEstudiante(){
+         metodosEstudiantes.guardarArchivoEstudiante();
+     }
     
 }

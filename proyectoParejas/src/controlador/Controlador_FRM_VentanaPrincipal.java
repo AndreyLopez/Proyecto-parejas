@@ -66,7 +66,7 @@ public class Controlador_FRM_VentanaPrincipal implements ActionListener{
         if(e.getActionCommand().equals("Matricula"))
         {
             frm_Matricula.setVisible(true);
-            frm_Matricula.colocarCodigo(base.codigoMatricula());
+//            frm_Matricula.colocarCodigo(base.codigoMatricula());
         }
     }
     
